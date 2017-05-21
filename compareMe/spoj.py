@@ -1,10 +1,10 @@
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import threading
 from bs4 import BeautifulSoup
 
 def scrapUserData(username):
 	url = 'http://www.spoj.com/users/' + username
-	html = urllib.urlopen(url)
+	html = urllib.request.urlopen(url)
 	soup = BeautifulSoup(html)
 	div1 = soup.find('div' , {'class':'col-md-3'})
 	paragraphs = div1.find_all('p')
@@ -15,7 +15,7 @@ def scrapUserData(username):
 	data=data + paragraphs[2].text + '\n'
 	data = data + 'Prbolems Solved : ' + dd[0].text + '\n'
 	data = data + 'Solutions Submitted : ' + dd[1].text + '\n'
-	print data
+	print(data)
 
 def main(user1 , user2):
 	t1 = threading.Thread(target=scrapUserData , args=(user1,))

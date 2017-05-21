@@ -1,10 +1,10 @@
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import threading
 from bs4 import BeautifulSoup
 
 def ScrapeUserData(username):
 	url = 'http://www.codechef.com/users/' + username
-	html = urllib.urlopen(url)
+	html = urllib.request.urlopen(url)
 	soup = BeautifulSoup(html)
 	table1 = soup.find('table' , {'class':'rating-table'})
 	td = table1.find_all('td')
@@ -17,9 +17,9 @@ def ScrapeUserData(username):
 	""" % (td[4].text , td[5].contents[0] , td[7].text , td[8].contents[0] , td[10].text , td[11].contents[0])
 
 	name = soup.find('div' , {'class':'user-name-box'})
-	print
-	print ' '*7 ,  name.text
-	print string
+	print()
+	print(' '*7 ,  name.text)
+	print(string)
 
 def main(user1, user2):
 	t1 = threading.Thread(target=ScrapeUserData , args=(user1,))
